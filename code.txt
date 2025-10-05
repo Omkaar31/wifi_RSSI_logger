@@ -1,0 +1,50 @@
+#include <ESP8266WiFi.h>
+#include <ThingSpeak.h>
+
+// ====== Wi-Fi Credentials ======
+const char* ssid = "omrenuka";        // 🔁 Replace with your Wi-Fi SSID
+const char* password = "ruthuparna"; // 🔁 Replace with your Wi-Fi Password
+
+// ====== ThingSpeak Configuration ======
+WiFiClient client;
+unsigned long channelNumber = 2979685;  // 🔁 Replace with your Channel Number (numeric)
+const char* writeAPIKey = "AKPNVN4XXMACN99B";     // 🔁 Replace with your ThingSpeak Write API Key
+
+// ====== Setup ======
+void setup() {
+  Serial.begin(115200);            // Start serial communication
+  WiFi.begin(ssid, password);      // Connect to Wi-Fi
+
+  Serial.print("Connecting to WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println();
+  Serial.println("WiFi connected!");
+  Serial.print("IP Address: ");
+  Serial.println(WiFi.localIP());
+
+  ThingSpeak.begin(client);        // Initialize ThingSpeak
+}
+
+// ====== Loop ======
+void loop() {
+  long rssi = WiFi.RSSI();         // Get Wi-Fi signal strength
+
+  Serial.print("RSSI: ");
+  Serial.println(rssi);
+
+  // Send to ThingSpeak (Field 1)
+  int response = ThingSpeak.writeField(channelNumber, 1, rssi, writeAPIKey);
+
+  if (response == 200) {
+    Serial.println("Data sent to ThingSpeak successfully.");
+  } else {
+    Serial.print("Error sending data. HTTP error code: ");
+    Serial.println(response);
+  }
+
+  delay(30000); // Wait 30 seconds before sending next data
+}
