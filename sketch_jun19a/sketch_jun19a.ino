@@ -3,8 +3,8 @@
 #include <ESP8266WebServer.h>
 
 // 🔐 Your Home WiFi credentials
-const char* ssid = "omrenuka";
-const char* password = "ruthuparna";
+const char* ssid = "Your wifi name";
+const char* password = "Your wifi password";
 
 ESP8266WebServer server(80);
 String lastReply = "ESPBot: Hello! Ask me something.";
