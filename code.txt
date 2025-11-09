@@ -2,8 +2,8 @@
 #include <ThingSpeak.h>
 
 // ====== Wi-Fi Credentials ======
-const char* ssid = "omrenuka";        // 🔁 Replace with your Wi-Fi SSID
-const char* password = "ruthuparna"; // 🔁 Replace with your Wi-Fi Password
+const char* ssid = "Your wifi name";        // 🔁 Replace with your Wi-Fi SSID
+const char* password = "Your wifi password"; // 🔁 Replace with your Wi-Fi Password
 
 // ====== ThingSpeak Configuration ======
 WiFiClient client;
